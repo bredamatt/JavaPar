@@ -3,7 +3,7 @@ This folder contains different examples of Task level parallelism that extends t
 
 A general example for how the Fork-Join pattern is as follows in Java psuedocode.
 
-```class AsyncArraySum extends RecursiveAction {
+``class AsyncArraySum extends RecursiveAction {
 
     final int[] array;
     final int LO;
@@ -40,6 +40,6 @@ A general example for how the Fork-Join pattern is as follows in Java psuedocode
             invokeall(a1, a2);
         }
     }
-}```
+}``
 
 Here, the invokeall() approach is used. 
