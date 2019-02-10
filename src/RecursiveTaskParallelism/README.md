@@ -35,7 +35,7 @@ A general example for how the Fork-Join pattern is as follows in Java psuedocode
         else {
             // Divide problem into subtasks based on midpoint of array,
             // and invoke compute on both in parallel.
-            int mid = abs((LO-HI) / 2); 
+            int mid = abs((LO-HI) / 2);
             AsyncArraySum a1 = new AsyncArraySum(array, lo, mid)
             AsyncArraySum a2 = new AsyncArraySum(array, mid, hi)
             invokeall(a1, a2);
@@ -51,7 +51,6 @@ Above, the `invokeall(task1, task2, ..., taskN) `approach is shown. An alternati
     @Override
     protected void compute() {
         SUM = 0;
-
         if (HI - LO < THRESHOLD) {
             for (int i = LO; i <= HI; i++)
                 SUM += array[i];
@@ -62,10 +61,18 @@ Above, the `invokeall(task1, task2, ..., taskN) `approach is shown. An alternati
             int mid = LO + ((LO-HI)/ 2);
             AsyncArraySum a1 = new AsyncArraySum(array, lo, mid);
             AsyncArraySum a2 = new AsyncArraySum(array, mid, hi);
-            a1.fork();
-            a2.compute();
-            a1.join();
+            a1.fork(); // async
+            a2.compute(); // RECURSIVE ^^
+            a1.join(); // finish 
             SUM = a1.sum + a2.sum; // Sum the sums of a1 and a2
         }
     }
+```
+
+Another neat feature is the ability to use the `ForkJoinPool`property and define the number of cores we want to use for parallelism. This can be done as follows:
+
+```java 
+
+System.setproperty("java.util.concurrent.ForkJoinPool.common.Parallelism", "numcores");
+
 ```
