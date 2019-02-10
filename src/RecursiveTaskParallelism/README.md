@@ -72,5 +72,4 @@ Above, the `invokeall(task1, task2, ..., taskN) `approach is shown. An alternati
             SUM = a1.sum + a2.sum;
         }
     }
-
 ```
