@@ -59,17 +59,14 @@ Above, the `invokeall(task1, task2, ..., taskN) `approach is shown. An alternati
         else {
             // Divide problem into subtasks based on midpoint of array,
             // and invoke compute on both in parallel.
-            int mid = abs((LO-HI) / 2); 
-            AsyncArraySum a1 = new AsyncArraySum(array, lo, mid)
-            AsyncArraySum a2 = new AsyncArraySum(array, mid, hi)
-            
+            int mid = LO + ((LO-HI)/ 2);
+            AsyncArraySum a1 = new AsyncArraySum(array, lo, mid);
+            AsyncArraySum a2 = new AsyncArraySum(array, mid, hi);
             a1.fork();
             a2.fork();
-            // join from innermost fork due work-stealing algorithm 
-            a2.join();
+            a2.join();  // join from innermost fork
             a1.join();
-
-            SUM = a1.sum + a2.sum;
+            SUM = a1.sum + a2.sum; // Sum the sums of a1 and a2
         }
     }
 ```
