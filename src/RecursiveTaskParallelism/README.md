@@ -43,3 +43,34 @@ A general example for how the Fork-Join pattern is as follows in Java psuedocode
     }
 }
 ```
+
+Above, the `invokeall(task1, task2, ..., taskN) `approach is shown. An alternative example using `fork()` and `join()` would look like this: 
+
+```java
+  // Computation to be made asynchronously
+    @Override
+    protected void compute() {
+        SUM = 0;
+
+        if (HI - LO < THRESHOLD) {
+            for (int i = LO; i <= HI; i++)
+                SUM += array[i];
+        }
+        else {
+            // Divide problem into subtasks based on midpoint of array,
+            // and invoke compute on both in parallel.
+            int mid = abs((LO-HI) / 2); 
+            AsyncArraySum a1 = new AsyncArraySum(array, lo, mid)
+            AsyncArraySum a2 = new AsyncArraySum(array, mid, hi)
+            
+            a1.fork();
+            a2.fork();
+            // join from innermost fork due work-stealing algorithm 
+            a2.join();
+            a1.join();
+
+            SUM = a1.sum + a2.sum;
+        }
+    }
+
+```
