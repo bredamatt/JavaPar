@@ -1,4 +1,4 @@
-// The class ASum 
+// The class ASum is a sketch of the parallel divide and conquer algorithm
 public static class ASum extends RecursiveAction {
     int[] A; // Input array 
     int LO, HI; // subrange 
