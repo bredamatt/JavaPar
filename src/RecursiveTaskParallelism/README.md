@@ -63,8 +63,7 @@ Above, the `invokeall(task1, task2, ..., taskN) `approach is shown. An alternati
             AsyncArraySum a1 = new AsyncArraySum(array, lo, mid);
             AsyncArraySum a2 = new AsyncArraySum(array, mid, hi);
             a1.fork();
-            a2.fork();
-            a2.join();  // join from innermost fork
+            a2.compute();
             a1.join();
             SUM = a1.sum + a2.sum; // Sum the sums of a1 and a2
         }
